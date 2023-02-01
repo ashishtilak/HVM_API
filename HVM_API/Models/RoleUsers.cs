@@ -9,9 +9,5 @@ namespace HVM_API.Models
         [ForeignKey("UserName")] public Users User { get; set; }
         [Key, Column(Order = 1)] public int RoleId { get; set; }
         [ForeignKey("RoleId")] public Roles Role { get; set; }
-
-        [StringLength(20)] public string UpdateUser { get; set; }
-        public DateTime UpdateDate { get; set; }
-
     }
 }
