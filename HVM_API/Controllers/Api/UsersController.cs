@@ -112,8 +112,8 @@ namespace HVM_API.Controllers.Api
             try
             {
                 //check if already exists...
-                var already = await _context.Users.FirstOrDefaultAsync(u=>u.UserName == dto.UserName);
-                if(already != null)
+                var already = await _context.Users.FirstOrDefaultAsync(u => u.UserName == dto.UserName);
+                if (already != null)
                     return BadRequest("User already exist.");
 
                 Users newUser = _context.Users.Add(new Users
@@ -124,7 +124,7 @@ namespace HVM_API.Controllers.Api
                     Active = true,
                 }).Entity;
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(user);
                 return Ok(_mapper.Map<UserDto>(newUser));
             }
             catch (Exception ex)
@@ -150,13 +150,13 @@ namespace HVM_API.Controllers.Api
 
             try
             {
-                var user = await _context.Users.FirstOrDefaultAsync(u=>u.UserName == dto.UserName);
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == dto.UserName);
                 if (user == null) return BadRequest("User not found.");
 
-                user.Email =dto.Email;
+                user.Email = dto.Email;
                 user.Password = dto.Password;
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(username);
                 return Ok(_mapper.Map<UserDto>(user));
             }
             catch (Exception ex)
